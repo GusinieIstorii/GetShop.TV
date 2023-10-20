@@ -1,0 +1,35 @@
+.background {
+    background-image: url(../../public/videoBG.png);
+    height: 100%;
+    width: 100%;
+}
+
+.banner__card {
+    width: 251px;
+    height: 357px;
+    position: fixed;
+    top: 220px;
+    left: 1029px;
+}
+
+.bannerCard__header {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.card__qr {
+    content: url(../../public/qr-code.png);
+    margin-bottom: 20px;
+}
+
+.bannerCard__text {
+    margin-bottom: 20px;
+}
+
+.card__button {
+    width: 156px;
+    height: 52px;
+}
