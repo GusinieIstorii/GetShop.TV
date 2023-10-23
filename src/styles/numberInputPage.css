@@ -7,18 +7,21 @@
 .number__card {
     width: 380px;
     height: 720px;
-    position: fixed;
-    justify-content: center;
+    position: relative;
+    border-radius: 0%;
 }
 
 .form {
     width: 284px;
+    position: absolute;
+    top: 80px;
 }
 
 .form__header {
     font-weight: 400;
     font-size: 26px;
     text-align: center;
+    margin-bottom: 13px;
 }
 
 .form__phoneInput {
@@ -27,13 +30,131 @@
     text-align: center;
     font-weight: 700;
     font-size: 32px;
+    margin-bottom: 13px;
 }
 
 .form__text {
     text-align: center;
+    margin-bottom: 13px;
 }
 
-#personalData {
-    width: 30px;
-    border: none;
+.numpad {
+    display: grid;
+    grid-template-rows: repeat(4, 52px);
+    grid-template-columns: repeat(3, 88px);
+    grid-gap: 10px;
+    position: absolute;
+    top: 270px;
 }
+
+[data-value="Стереть"] {
+    grid-column: span 2;
+  }
+
+.numpad button {
+    background-color: var(--card-bg);
+    border: black solid 2px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.numpad button:active {
+    background-color: black; 
+    color: white;
+  }
+
+.checkboxContainer {
+    display: block;
+    position: absolute;
+    top: 450px;
+    left: 10px;
+    padding-left: 55px;
+    padding-top: 5px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 14px;
+    color: var(--grey-color);
+    line-height: 16.41px;
+  }
+
+  .checkboxContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    background-color: var(--card-bg);
+    border: black solid 2px;
+  }
+
+  .checkboxContainer input:checked ~ .checkmark {
+    background-color: var(--card-bg);
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .checkboxContainer input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .checkboxContainer .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 15px;
+    height: 20px;
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  button[type="submit"] {
+    border: solid 1px var(--grey-color);
+    border-radius: 0%;
+    color: var(--grey-color);
+    width: 100%;
+    position: absolute;
+    top: 510px;
+  }
+
+  .qr__text {
+    position: absolute;
+    top: 585px;
+    left: 910px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: right;
+    width: 194px;
+    line-height: 18.75px;
+  }
+
+.card__qr {
+    position: absolute;
+    top: 560px;
+    left: 1120px;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 1px;
+    left: 1155px; 
+}
+
