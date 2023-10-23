@@ -1,6 +1,7 @@
 @import url("./variables.css");
 @import url("./videoBannerPage.css");
 @import url("./numberInputPage.css");
+@import url("./submittedPage.css");
 
 * {
   font-family: 'Roboto', sans-serif;
