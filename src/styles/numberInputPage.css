@@ -1,0 +1,39 @@
+.backgroundSecond {
+    background-image: url(../../public/numberBG.png);
+    height: 100%;
+    width: 100%;
+}
+
+.number__card {
+    width: 380px;
+    height: 720px;
+    position: fixed;
+    justify-content: center;
+}
+
+.form {
+    width: 284px;
+}
+
+.form__header {
+    font-weight: 400;
+    font-size: 26px;
+    text-align: center;
+}
+
+.form__phoneInput {
+    width: 100%;
+    background-color: var(--card-bg);
+    text-align: center;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.form__text {
+    text-align: center;
+}
+
+#personalData {
+    width: 30px;
+    border: none;
+}

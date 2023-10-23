@@ -1,5 +1,6 @@
 @import url("./variables.css");
 @import url("./videoBannerPage.css");
+@import url("./numberInputPage.css");
 
 * {
   font-family: 'Roboto', sans-serif;
@@ -9,6 +10,10 @@
   border: none;
 }
 
+p {
+ line-height: 16.41px;
+ font-size: 14px;
+}
 .card {
   background-color: var(--card-bg);
   display: flex;
@@ -26,6 +31,10 @@
   padding-bottom: 16px;
   font-weight: bold;
   font-size: 16px;
+}
+
+.btn:hover {
+  cursor: pointer;
 }
 
 .btn.active {
