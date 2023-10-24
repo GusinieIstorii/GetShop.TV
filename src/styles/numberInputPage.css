@@ -47,7 +47,7 @@
     top: 270px;
 }
 
-[data-value="Стереть"] {
+[data-value="delete"] {
     grid-column: span 2;
   }
 
@@ -61,6 +61,12 @@
 .numpad button:active {
     background-color: black; 
     color: white;
+  }
+
+  .numpad button:focus {
+    background-color: black; 
+    color: white;
+    outline: none;
   }
 
 .checkboxContainer {
@@ -99,6 +105,14 @@
     border: black solid 2px;
   }
 
+  .checkboxContainer input:focus ~.checkmark {
+    border: black solid 3px;
+  }
+
+  .checkboxContainer input:focus ~ .checkboxContainer {
+    color: black;
+  }
+
   .checkboxContainer input:checked ~ .checkmark {
     background-color: var(--card-bg);
   }
@@ -126,12 +140,20 @@
   }
 
   button[type="submit"] {
-    border: solid 1px var(--grey-color);
     border-radius: 0%;
-    color: var(--grey-color);
     width: 100%;
     position: absolute;
     top: 510px;
+  }
+
+  .btn-enabled {
+    border: solid 1px black;
+    color: black;
+  }
+
+  .btn-disabled {
+    border: solid 1px var(--grey-color);
+    color: var(--grey-color);
   }
 
   .qr__text {
@@ -146,7 +168,7 @@
     line-height: 18.75px;
   }
 
-.card__qr {
+.numberInputPage_card__qr {
     position: absolute;
     top: 560px;
     left: 1120px;
@@ -156,5 +178,11 @@
     position: absolute;
     top: 1px;
     left: 1155px; 
+}
+
+.closeBtn:focus {
+  background-color: black; 
+  color: white;
+  outline: none;
 }
 
