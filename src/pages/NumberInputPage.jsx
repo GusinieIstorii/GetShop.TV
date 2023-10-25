@@ -235,7 +235,9 @@ const NumberInputPage = () => {
   const submitNumber = async (e) => {
     e.preventDefault();
     const numValidation = await numverify(inputValue);
-    if (!numValidation) {
+    const isValid = numValidation.data.valid;
+    console.log(isValid);
+    if (!isValid) {
       alert("Перепроверь номер");
     } else {
       navigate("/submitted");
