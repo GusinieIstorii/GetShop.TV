@@ -4,19 +4,49 @@ import { useNavigate } from "react-router-dom";
 import { InputMask } from "@react-input/mask";
 import cn from 'classnames';
 import CloseButton from "../components/CloseButton";
+import numverify from "../utils/numverify";
 
 const NumberInputPage = () => {
   const [inputValue, setValue] = useState("+7(___)___-__-__");
   const [checkBox, setCheckBox] = useState(false);
-  const onChange = (e) => {
-    setValue(e.target.value);
+  const [userActive, setUserActive] = useState(true);
+  const navigate = useNavigate();
+
+  const resetTimer = () => {
+    setUserActive(true);
+    clearTimeout(timerId);
+    startTimer();
   };
+
+  let timerId;
+  const startTimer = () => {
+    timerId = setTimeout(() => {
+      navigate('/');
+    }, 10000);
+  };
+
+  useEffect(() => {
+    startTimer();
+
+    // Add event listeners for user activity
+    window.addEventListener('mousemove', resetTimer);
+    window.addEventListener('keydown', resetTimer);
+
+    // Clean up event listeners when the component unmounts
+    return () => {
+      clearTimeout(timerId);
+      window.removeEventListener('mousemove', resetTimer);
+      window.removeEventListener('keydown', resetTimer);
+    };
+  }, []);
+
+  const onChange = (e) => setValue(e.target.value);
+
   const handleCheckBox = () => {
     const newCheckBox = !checkBox;
     setCheckBox(newCheckBox);
   };
-  const navigate = useNavigate();
-
+  
   const phoneInputRef = useRef(null);
   const submitBtnRef = useRef(null);
   const btn1Ref = useRef(null);
@@ -57,14 +87,11 @@ const NumberInputPage = () => {
   }
 
   const handleKeyDown = (e) => {
-    console.log(e.target);
     const value = e.target.getAttribute("data-value");
-    console.log(value);
     const action = e.code;
     if (action === 'Enter') {
       e.preventDefault();
     }
-    console.log(action);
     const add1 = (value) => {
       const newNum = Number(value) + 1;
       valuesAndRefs[newNum].current.focus();
@@ -217,14 +244,14 @@ const NumberInputPage = () => {
     setValue(newValue);
   };
 
-    const submitNumber = (e) => {
+    const submitNumber = async(e) => {
       e.preventDefault();
-      if (checkBox && !inputValue.includes('_')) {
-        // логика для отправки данных на сервер
-      navigate("/submitted");
-      return;
-      }
-      return null;
+        const numValidation = await numverify(inputValue);
+        if (!numValidation) {
+          alert('Перепроверь номер');
+        } else {
+          navigate("/submitted");
+        }
     };
 
   return (

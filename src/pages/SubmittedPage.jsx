@@ -10,7 +10,7 @@ const SubmittedPage = () => {
               </div>
               <p className="qr__text">СКАНИРУЙТЕ QR-КОД ДЛЯ ПОЛУЧЕНИЯ ДОПОЛНИТЕЛЬНОЙ ИНФОРМАЦИИ</p>
         <img
-          className="card__qr"
+          className="card__qr numberInputPage_card__qr"
           alt="qr code"
           src="../../public/videoBG.png"
         />

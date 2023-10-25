@@ -9,14 +9,10 @@ const VideoBannerPage = () => {
   };
 
   const [bannerCardShown, setBannerCardShown] = useState(false);
+  
 
   
     useEffect(() => {
-        // Initialize the YouTube iFrame API
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     let player;
 
