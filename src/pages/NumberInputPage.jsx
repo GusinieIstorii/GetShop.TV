@@ -234,7 +234,8 @@ const NumberInputPage = () => {
 
   const submitNumber = async (e) => {
     e.preventDefault();
-    const numValidation = await numverify(inputValue);
+    try {
+      const numValidation = await numverify(inputValue);
     const isValid = numValidation.data.valid;
     console.log(isValid);
     if (!isValid) {
@@ -242,6 +243,12 @@ const NumberInputPage = () => {
     } else {
       navigate("/submitted");
     }
+    } catch(e) {
+      if (e.message === 'Network Error') {
+        navigate("/submitted");               // Render use https, but Numverify https encryption is available for paid customers only
+      }
+    }
+    
   };
 
   return (
