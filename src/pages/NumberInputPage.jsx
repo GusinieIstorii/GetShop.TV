@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef, createRef } from "react";
-
 import { useNavigate } from "react-router-dom";
 import { InputMask } from "@react-input/mask";
-import cn from 'classnames';
+import cn from "classnames";
 import CloseButton from "../components/CloseButton";
 import numverify from "../utils/numverify";
 
@@ -12,41 +11,6 @@ const NumberInputPage = () => {
   const [userActive, setUserActive] = useState(true);
   const navigate = useNavigate();
 
-  const resetTimer = () => {
-    setUserActive(true);
-    clearTimeout(timerId);
-    startTimer();
-  };
-
-  let timerId;
-  const startTimer = () => {
-    timerId = setTimeout(() => {
-      navigate('/');
-    }, 10000);
-  };
-
-  useEffect(() => {
-    startTimer();
-
-    // Add event listeners for user activity
-    window.addEventListener('mousemove', resetTimer);
-    window.addEventListener('keydown', resetTimer);
-
-    // Clean up event listeners when the component unmounts
-    return () => {
-      clearTimeout(timerId);
-      window.removeEventListener('mousemove', resetTimer);
-      window.removeEventListener('keydown', resetTimer);
-    };
-  }, []);
-
-  const onChange = (e) => setValue(e.target.value);
-
-  const handleCheckBox = () => {
-    const newCheckBox = !checkBox;
-    setCheckBox(newCheckBox);
-  };
-  
   const phoneInputRef = useRef(null);
   const submitBtnRef = useRef(null);
   const btn1Ref = useRef(null);
@@ -63,12 +27,38 @@ const NumberInputPage = () => {
   const closeBtnRef = createRef(null);
   const checkmarkRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (phoneInputRef.current && phoneInputRef.current.element) {
-  //     phoneInputRef.current.element.setSelectionRange(2, 3);
-  //     // phoneInputRef.current.element.focus();
-  //   }
-  // }, []);
+  const resetTimer = () => {
+    setUserActive(true);
+    clearTimeout(timerId);
+    startTimer();
+  };
+
+  let timerId;
+  const startTimer = () => {
+    timerId = setTimeout(() => {
+      navigate("/");
+    }, 10000);
+  };
+
+  useEffect(() => {
+    startTimer();
+
+    window.addEventListener("mousemove", resetTimer);
+    window.addEventListener("keydown", resetTimer);
+
+    return () => {
+      clearTimeout(timerId);
+      window.removeEventListener("mousemove", resetTimer);
+      window.removeEventListener("keydown", resetTimer);
+    };
+  }, []);
+
+  const onChange = (e) => setValue(e.target.value);
+
+  const handleCheckBox = () => {
+    const newCheckBox = !checkBox;
+    setCheckBox(newCheckBox);
+  };
 
   const valuesAndRefs = {
     1: btn1Ref,
@@ -84,18 +74,18 @@ const NumberInputPage = () => {
     checkmarkkBox: checkmarkRef,
     submitBtn: submitBtnRef,
     closeButton: closeBtnRef,
-  }
+  };
 
   const handleKeyDown = (e) => {
     const value = e.target.getAttribute("data-value");
     const action = e.code;
-    if (action === 'Enter') {
+    if (action === "Enter") {
       e.preventDefault();
     }
     const add1 = (value) => {
       const newNum = Number(value) + 1;
       valuesAndRefs[newNum].current.focus();
-    }
+    };
     const add3 = (value) => {
       const newNum = Number(value) + 3;
       valuesAndRefs[newNum].current.focus();
@@ -220,15 +210,13 @@ const NumberInputPage = () => {
       },
       closeButton: {
         ArrowLeft: () => phoneInputRef.current.focus(),
-      }
-
+      },
     };
-    
+
     if (Object.hasOwn(constuctorFunc[value], action)) {
-        constuctorFunc[value][action](value);
-      }
+      constuctorFunc[value][action](value);
+    }
   };
-  
 
   const numPadClick = (e) => {
     const value = e.target.getAttribute("data-value");
@@ -244,26 +232,34 @@ const NumberInputPage = () => {
     setValue(newValue);
   };
 
-    const submitNumber = async(e) => {
-      e.preventDefault();
-        const numValidation = await numverify(inputValue);
-        if (!numValidation) {
-          alert('Перепроверь номер');
-        } else {
-          navigate("/submitted");
-        }
-    };
+  const submitNumber = async (e) => {
+    e.preventDefault();
+    const numValidation = await numverify(inputValue);
+    if (!numValidation) {
+      alert("Перепроверь номер");
+    } else {
+      navigate("/submitted");
+    }
+  };
 
   return (
     <>
       <div className="backgroundSecond">
         <div className="card number__card">
-          <form action="" className="form" onSubmit={submitNumber}>
+          <form
+            action=""
+            className="form"
+            onSubmit={submitNumber}
+            id="numInputForm"
+          >
             <h1 className="form__header">
               Введите ваш номер <br></br> мобильного телефона
             </h1>
+            <label htmlFor="numInput"></label>
             <InputMask
               className="form__phoneInput"
+              name="numInput"
+              id="numInput"
               mask="+7(___)___-__-__"
               replacement={{ _: /\d/ }}
               showMask
@@ -282,7 +278,7 @@ const NumberInputPage = () => {
               консультации
             </p>
 
-            <label htmlFor="personalData" className="checkboxContainer" >
+            <label htmlFor="personalData" className="checkboxContainer">
               Согласие на обработку<br></br>персональных данных
               <input
                 type="checkbox"
@@ -290,18 +286,16 @@ const NumberInputPage = () => {
                 id="personalData"
                 required
                 onClick={handleCheckBox}
-                ref = {checkmarkRef}
-              onKeyDown={handleKeyDown}
-              data-value='checkmark'
+                ref={checkmarkRef}
+                onKeyDown={handleKeyDown}
+                data-value="checkmark"
               />
-              <div className="checkmark" 
-              
-                ></div>
+              <div className="checkmark"></div>
             </label>
             <button
               className={cn("btn", {
-                'btn-enabled': checkBox && !inputValue.includes('_'),
-                'btn-disabled': !checkBox || inputValue.includes('_'),
+                "btn-enabled": checkBox && !inputValue.includes("_"),
+                "btn-disabled": !checkBox || inputValue.includes("_"),
               })}
               type="submit"
               id="button-addon2"
@@ -313,12 +307,11 @@ const NumberInputPage = () => {
             </button>
           </form>
           <div className="numpad" tabIndex="0">
-            
             <button
               className="numpad__btn"
               onClick={numPadClick}
               data-value="1"
-              ref = {btn1Ref}
+              ref={btn1Ref}
               onKeyDown={handleKeyDown}
             >
               1
@@ -327,7 +320,7 @@ const NumberInputPage = () => {
               className="numpad__btn"
               onClick={numPadClick}
               data-value="2"
-              ref = {btn2Ref}
+              ref={btn2Ref}
               onKeyDown={handleKeyDown}
             >
               2
@@ -336,7 +329,7 @@ const NumberInputPage = () => {
               className="numpad__btn"
               onClick={numPadClick}
               data-value="3"
-              ref = {btn3Ref}
+              ref={btn3Ref}
               onKeyDown={handleKeyDown}
             >
               3
@@ -345,7 +338,7 @@ const NumberInputPage = () => {
               className="numpad__btn"
               onClick={numPadClick}
               data-value="4"
-              ref= {btn4Ref}
+              ref={btn4Ref}
               onKeyDown={handleKeyDown}
             >
               4
@@ -354,7 +347,7 @@ const NumberInputPage = () => {
               className="numpad__btn"
               onClick={numPadClick}
               data-value="5"
-              ref = {btn5Ref}
+              ref={btn5Ref}
               onKeyDown={handleKeyDown}
             >
               5
@@ -363,7 +356,7 @@ const NumberInputPage = () => {
               className="numpad__btn"
               onClick={numPadClick}
               data-value="6"
-              ref = {btn6Ref}
+              ref={btn6Ref}
               onKeyDown={handleKeyDown}
             >
               6
@@ -372,7 +365,7 @@ const NumberInputPage = () => {
               className="numpad__btn"
               onClick={numPadClick}
               data-value="7"
-              ref = {btn7Ref}
+              ref={btn7Ref}
               onKeyDown={handleKeyDown}
             >
               7
@@ -381,7 +374,7 @@ const NumberInputPage = () => {
               className="numpad__btn"
               onClick={numPadClick}
               data-value="8"
-              ref = {btn8Ref}
+              ref={btn8Ref}
               onKeyDown={handleKeyDown}
             >
               8
@@ -390,7 +383,7 @@ const NumberInputPage = () => {
               className="numpad__btn"
               onClick={numPadClick}
               data-value="9"
-              ref = {btn9Ref}
+              ref={btn9Ref}
               onKeyDown={handleKeyDown}
             >
               9
@@ -399,28 +392,31 @@ const NumberInputPage = () => {
               className="numpad__btn"
               onClick={numPadClick}
               data-value="delete"
-              ref = {deleteRef}
+              ref={deleteRef}
               onKeyDown={handleKeyDown}
             >
               СТЕРЕТЬ
-            </button>     
+            </button>
             <button
               className="numpad__btn"
               onClick={numPadClick}
               data-value="0"
-              ref = {btn0Ref}
+              ref={btn0Ref}
               onKeyDown={handleKeyDown}
             >
               0
             </button>
           </div>
         </div>
-        <p className="qr__text">СКАНИРУЙТЕ QR-КОД ДЛЯ ПОЛУЧЕНИЯ ДОПОЛНИТЕЛЬНОЙ ИНФОРМАЦИИ</p>
-        <img
-          className="card__qr numberInputPage_card__qr"
-          alt="qr code"
+        <p className="qr__text">
+          СКАНИРУЙТЕ QR-КОД ДЛЯ ПОЛУЧЕНИЯ ДОПОЛНИТЕЛЬНОЙ ИНФОРМАЦИИ
+        </p>
+        <img className="card__qr numberInputPage_card__qr" alt="qr code" />
+        <CloseButton
+          ref={closeBtnRef}
+          onKeyDown={handleKeyDown}
+          data-value="closeButton"
         />
-        <CloseButton ref={closeBtnRef} onKeyDown={handleKeyDown} data-value="closeButton"/>
       </div>
     </>
   );
